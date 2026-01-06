@@ -1,6 +1,7 @@
 package pairmatching;
 
 import pairmatching.controller.PairMatchingController;
+import pairmatching.domain.MatchingHistory;
 import pairmatching.repository.NameRepository;
 import pairmatching.service.PairMatchingService;
 import pairmatching.util.FileLoader;
@@ -15,7 +16,8 @@ public class Application {
 
         FileLoader fileLoader = new FileLoader();
         NameRepository nameRepository = new NameRepository(fileLoader);
-        PairMatchingService pairMatchingService = new PairMatchingService(nameRepository);
+        MatchingHistory matchingHistory = new MatchingHistory();
+        PairMatchingService pairMatchingService = new PairMatchingService(nameRepository, matchingHistory);
 
         PairMatchingController pairMatchingController = new PairMatchingController(inputView, outputView,
                 pairMatchingService);

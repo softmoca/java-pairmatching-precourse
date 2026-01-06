@@ -90,7 +90,7 @@ public class PairMatchingController {
     }
 
     private void matching(MatchingKey matchingKey) {
-        List<Pair> pairs = pairMatchingService.match(matchingKey, matchingHistory);
+        List<Pair> pairs = pairMatchingService.match(matchingKey);
         outputView.printMatchingResult(pairs);
     }
 

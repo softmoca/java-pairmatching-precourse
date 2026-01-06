@@ -11,17 +11,19 @@ import pairmatching.repository.NameRepository;
 public class PairMatchingService {
 
     private final NameRepository nameRepository;
+    private final MatchingHistory matchingHistory;
 
-    public PairMatchingService(NameRepository nameRepository) {
+    public PairMatchingService(NameRepository nameRepository, MatchingHistory matchingHistory) {
         this.nameRepository = nameRepository;
+        this.matchingHistory = matchingHistory;
     }
 
-    public List<Pair> match(MatchingKey matchingKey, MatchingHistory matchingHistory) {
+    public List<Pair> match(MatchingKey matchingKey) {
 
         for (int i = 0; i < 3; i++) {
             List<String> names = Randoms.shuffle(nameRepository.getNames(matchingKey.getCourse()));
             List<Pair> pairs = createPairs(names);
-            if (validePair(pairs, matchingHistory, matchingKey)) {
+            if (validePair(pairs, matchingKey)) {
                 matchingHistory.save(matchingKey, pairs);
                 return pairs;
             }
@@ -29,7 +31,7 @@ public class PairMatchingService {
         throw new IllegalArgumentException("[ERROR] 매칭 3회 모두 실패");
     }
 
-    private boolean validePair(List<Pair> newPairs, MatchingHistory matchingHistory, MatchingKey matchingKey) {
+    private boolean validePair(List<Pair> newPairs, MatchingKey matchingKey) {
         List<Pair> existPairs = matchingHistory.findSameLevelPair(matchingKey);
         for (Pair existPair : existPairs) {
             if (isValidPair(newPairs, existPair)) {
