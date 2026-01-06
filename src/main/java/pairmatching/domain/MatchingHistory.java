@@ -40,4 +40,7 @@ public class MatchingHistory {
     }
 
 
+    public void clear() {
+        matchingMap.clear();
+    }
 }

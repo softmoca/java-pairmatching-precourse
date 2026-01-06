@@ -47,12 +47,15 @@ public class PairMatchingController {
         }
 
         if (command == FunctionCommand.CLEAR) {
-
+            functioningClear();
             return;
         }
 
     }
 
+    private void functioningClear() {
+        matchingHistory.clear();
+    }
 
     private void functioningQuery() {
 
