@@ -25,17 +25,13 @@ public class PairMatchingController {
     }
 
     public void run() {
-
         while (true) {
             FunctionCommand command = readCommand();
             if (command == FunctionCommand.QUIT) {
                 break;
             }
             functioning(command);
-
         }
-
-
     }
 
     private void functioning(FunctionCommand command) {
@@ -46,7 +42,7 @@ public class PairMatchingController {
         }
 
         if (command == FunctionCommand.QUERY) {
-
+            functioningQuery();
             return;
         }
 
@@ -54,6 +50,29 @@ public class PairMatchingController {
 
             return;
         }
+
+    }
+
+
+    private void functioningQuery() {
+
+        while (true) {
+            try {
+                MatchingKey matchingKey = readMatchingKey();
+                if (matchingHistory.isExist(matchingKey)) {
+
+                    List<Pair> pairs = matchingHistory.getPairsByKey(matchingKey);
+                    outputView.printMatchingResult(pairs);
+                }
+                throw new IllegalArgumentException("[ERROR] 매칭 이력이 없습니다.");
+
+
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+
+        }
+
 
     }
 

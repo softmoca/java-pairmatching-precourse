@@ -13,6 +13,10 @@ public class MatchingHistory {
         this.matchingMap = new HashMap<>();
     }
 
+    public List<Pair> getPairsByKey(MatchingKey matchingKey) {
+        return matchingMap.get(matchingKey);
+    }
+
     public boolean isExist(MatchingKey matchingKey) {
         return matchingMap.containsKey(matchingKey);
     }
