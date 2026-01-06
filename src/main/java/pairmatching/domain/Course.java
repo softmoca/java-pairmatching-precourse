@@ -16,8 +16,6 @@ public enum Course {
                 return course;
             }
         }
-
         throw new IllegalArgumentException("[ERROR] 존재하지 않는 과정");
-
     }
 }

@@ -24,21 +24,16 @@ public class MatchingHistory {
     public List<Pair> findSameLevelPair(MatchingKey matchingKey) {
         List<Pair> existPairs = new ArrayList<>();
         for (MatchingKey key : matchingMap.keySet()) {
-            if (key.getCourse() == matchingKey.getCourse() &&
-                    key.getLevel() == matchingKey.getLevel()
-            ) {
+            if (key.isSameCourseAndLevel(matchingKey)) {
                 existPairs.addAll(matchingMap.get(matchingKey));
             }
-
         }
         return existPairs;
-
     }
 
     public void save(MatchingKey matchingKey, List<Pair> pairs) {
         matchingMap.put(matchingKey, pairs);
     }
-
 
     public void clear() {
         matchingMap.clear();

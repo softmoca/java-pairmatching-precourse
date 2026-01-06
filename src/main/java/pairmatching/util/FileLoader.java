@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileLoader {
-
-
     public List<String> readLines(String fileName) {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
              BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
@@ -24,7 +22,5 @@ public class FileLoader {
             throw new RuntimeException(fileName + " 파일을 읽을 수 없습니다.", e);
         }
     }
-
-
 }
 

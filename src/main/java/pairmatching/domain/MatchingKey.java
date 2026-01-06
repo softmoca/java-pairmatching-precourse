@@ -30,11 +30,14 @@ public class MatchingKey {
         return course;
     }
 
-
     public Level getLevel() {
         return mission.getLevel();
     }
 
+    public boolean isSameCourseAndLevel(MatchingKey matchingKey) {
+
+        return course == matchingKey.getCourse() && this.getLevel() == matchingKey.getLevel();
+    }
 
     @Override
     public boolean equals(Object o) {

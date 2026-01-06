@@ -19,9 +19,5 @@ public enum FunctionCommand {
             }
         }
         throw new IllegalArgumentException("[ERROR] 기능 입력 에러");
-
-
     }
-
-
 }

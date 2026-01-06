@@ -26,8 +26,6 @@ public enum Mission {
             }
         }
         throw new IllegalArgumentException("[ERROR] 존재하지 않는 미션");
-
-
     }
 
     public Level getLevel() {

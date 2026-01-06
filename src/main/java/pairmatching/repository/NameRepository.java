@@ -31,5 +31,4 @@ public class NameRepository {
         return new ArrayList<>(frontendNames);
     }
 
-
 }

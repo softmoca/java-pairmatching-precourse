@@ -19,9 +19,6 @@ public enum Level {
                 return level;
             }
         }
-
         throw new IllegalArgumentException("[ERROR] 존재하지 않는 레벨");
-
     }
-
 }

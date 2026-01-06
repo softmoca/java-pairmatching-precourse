@@ -16,7 +16,6 @@ public class PairMatchingService {
         this.nameRepository = nameRepository;
     }
 
-
     public List<Pair> match(MatchingKey matchingKey, MatchingHistory matchingHistory) {
 
         for (int i = 0; i < 3; i++) {
@@ -32,14 +31,11 @@ public class PairMatchingService {
 
     private boolean validePair(List<Pair> newPairs, MatchingHistory matchingHistory, MatchingKey matchingKey) {
         List<Pair> existPairs = matchingHistory.findSameLevelPair(matchingKey);
-
         for (Pair existPair : existPairs) {
-
             if (isValidPair(newPairs, existPair)) {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -96,6 +92,5 @@ public class PairMatchingService {
     private boolean isLastOdd(int totalCount, int i) {
         return (totalCount - 3) == i;
     }
-
 
 }

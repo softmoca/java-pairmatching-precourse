@@ -58,7 +58,6 @@ public class PairMatchingController {
     }
 
     private void functioningQuery() {
-
         while (true) {
             try {
                 MatchingKey matchingKey = readMatchingKey();
@@ -68,15 +67,10 @@ public class PairMatchingController {
                     outputView.printMatchingResult(pairs);
                 }
                 throw new IllegalArgumentException("[ERROR] 매칭 이력이 없습니다.");
-
-
             } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
-
         }
-
-
     }
 
     private void functioningMatching() {
@@ -98,7 +92,6 @@ public class PairMatchingController {
     private void matching(MatchingKey matchingKey) {
         List<Pair> pairs = pairMatchingService.match(matchingKey, matchingHistory);
         outputView.printMatchingResult(pairs);
-
     }
 
     private RematchCommand readRematcingCommand() {
@@ -109,10 +102,7 @@ public class PairMatchingController {
             } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
-
         }
-
-
     }
 
     private MatchingKey readMatchingKey() {
@@ -122,14 +112,10 @@ public class PairMatchingController {
             } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
-
         }
-
-
     }
 
     private FunctionCommand readCommand() {
-
         while (true) {
             try {
                 String input = inputView.readFunction();
@@ -137,11 +123,6 @@ public class PairMatchingController {
             } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
-
         }
-
-
     }
-
-
 }
