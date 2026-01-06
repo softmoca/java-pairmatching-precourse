@@ -34,29 +34,41 @@ public class PairMatchingService {
         List<Pair> existPairs = matchingHistory.findSameLevelPair(matchingKey);
 
         for (Pair existPair : existPairs) {
-            for (Pair newPair : newPairs) {
-                int newPairCount = newPair.getCount();
-                if (newPairCount == 2) {
-                    if (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(1))) {
-                        return false;
-                    }
-                } else if (newPairCount == 3) {
-                    if (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(1))) {
-                        return false;
-                    }
-                    if (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(2))) {
-                        return false;
-                    }
-                    if (existPair.isExist(newPair.getNameByIdx(1), newPair.getNameByIdx(2))) {
-                        return false;
-                    }
 
-                }
+            if (isValidPair(newPairs, existPair)) {
+                return false;
             }
         }
 
         return true;
     }
+
+    private static boolean isValidPair(List<Pair> newPairs, Pair existPair) {
+        for (Pair newPair : newPairs) {
+            int newPairCount = newPair.getCount();
+            if (newPairCount == 2 && (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(1)))) {
+                return false;
+            }
+            if (isValid3NewPair(existPair, newPair)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValid3NewPair(Pair existPair, Pair newPair) {
+        if (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(1))) {
+            return false;
+        }
+        if (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(2))) {
+            return false;
+        }
+        if (existPair.isExist(newPair.getNameByIdx(1), newPair.getNameByIdx(2))) {
+            return false;
+        }
+        return true;
+    }
+
 
     private List<Pair> createPairs(List<String> names) {
         List<Pair> pairs = new ArrayList<>();
