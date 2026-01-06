@@ -1,6 +1,7 @@
 package pairmatching.controller;
 
 import java.util.List;
+import java.util.function.Supplier;
 import pairmatching.domain.FunctionCommand;
 import pairmatching.domain.MatchingHistory;
 import pairmatching.domain.MatchingKey;
@@ -48,9 +49,7 @@ public class PairMatchingController {
 
         if (command == FunctionCommand.CLEAR) {
             functioningClear();
-            return;
         }
-
     }
 
     private void functioningClear() {
@@ -62,9 +61,9 @@ public class PairMatchingController {
             try {
                 MatchingKey matchingKey = readMatchingKey();
                 if (matchingHistory.isExist(matchingKey)) {
-
                     List<Pair> pairs = matchingHistory.getPairsByKey(matchingKey);
                     outputView.printMatchingResult(pairs);
+                    return;
                 }
                 throw new IllegalArgumentException("[ERROR] 매칭 이력이 없습니다.");
             } catch (IllegalArgumentException e) {
@@ -74,7 +73,6 @@ public class PairMatchingController {
     }
 
     private void functioningMatching() {
-
         MatchingKey matchingKey = readMatchingKey();
 
         if (matchingHistory.isExist(matchingKey)) {//재매칭
@@ -95,34 +93,30 @@ public class PairMatchingController {
     }
 
     private RematchCommand readRematcingCommand() {
-        while (true) {
-            try {
-                String input = inputView.readReMatchingAnswer();
-                return RematchCommand.from(input);
-            } catch (IllegalArgumentException e) {
-                outputView.printError(e.getMessage());
-            }
-        }
+        return retryOnIllegalArgument(() ->
+                RematchCommand.from(inputView.readReMatchingAnswer())
+        );
     }
 
     private MatchingKey readMatchingKey() {
+        return retryOnIllegalArgument(() ->
+                MatchingKey.from(inputView.readCourseAndMission()));
+    }
+
+    private FunctionCommand readCommand() {
+        return retryOnIllegalArgument(() ->
+                FunctionCommand.from(inputView.readFunction())
+        );
+    }
+
+    private <T> T retryOnIllegalArgument(Supplier<T> action) {
         while (true) {
             try {
-                return MatchingKey.from(inputView.readCourseAndMission());
+                return action.get();
             } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }
     }
 
-    private FunctionCommand readCommand() {
-        while (true) {
-            try {
-                String input = inputView.readFunction();
-                return FunctionCommand.from(input);
-            } catch (IllegalArgumentException e) {
-                outputView.printError(e.getMessage());
-            }
-        }
-    }
 }
