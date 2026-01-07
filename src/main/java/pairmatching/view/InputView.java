@@ -5,27 +5,37 @@ import java.util.List;
 import pairmatching.util.Parser;
 
 public class InputView {
-    public String readFunction() {
 
-        System.out.println("기능을 선택하세요.");
-        System.out.println("1. 페어 매칭");
-        System.out.println("2. 페어 조회");
-        System.out.println("3. 페어 초기화");
-        System.out.println("Q. 종료");
-        String input = Console.readLine();
-        return input;
+    private static final String DELIMITER = ",";
+
+    //    private static final String FUNCTION_PROMPT = """
+//            기능을 선택하세요.
+//            1. 페어 매칭
+//            2. 페어 조회
+//            3. 페어 초기화
+//            Q. 종료
+//            """;
+    private static final String FUNCTION_PROMPT =
+            "기능을 선택하세요.\n" +
+                    "1. 페어 매칭\n" +
+                    "2. 페어 조회\n" +
+                    "3. 페어 초기화\n" +
+                    "Q. 종료\n";
+
+
+    public String readFunction() {
+        System.out.println(FUNCTION_PROMPT);
+        return Console.readLine().trim();
     }
 
     public List<String> readCourseAndMission() {
         System.out.println("과정, 레벨, 미션을 선택하세요.");
         System.out.println("ex) 백엔드, 레벨1, 자동차경주");
-        String input = Console.readLine();
-        return Parser.splitAndTrimValidate(input, ",");
+        return Parser.splitAndTrimValidate(Console.readLine(), DELIMITER);
     }
 
     public String readReMatchingAnswer() {
-        System.out.println("매칭 정보가 있습니다. 다시 매칭하시겠습니까?");
-        return Console.readLine();
+        System.out.println("매칭 정보가 있습니다. 다시 매칭하시겠습니까? (네/아니오)");
+        return Console.readLine().trim();
     }
-
 }
