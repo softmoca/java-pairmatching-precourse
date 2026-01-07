@@ -11,16 +11,17 @@ import pairmatching.view.OutputView;
 public class Application {
 
     public static void main(String[] args) {
-        InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
 
         FileLoader fileLoader = new FileLoader();
         NameRepository nameRepository = new NameRepository(fileLoader);
         MatchingHistory matchingHistory = new MatchingHistory();
         PairMatchingService pairMatchingService = new PairMatchingService(nameRepository, matchingHistory);
 
-        PairMatchingController pairMatchingController = new PairMatchingController(inputView, outputView,
-                pairMatchingService);
-        pairMatchingController.run();
+        InputView inputView = new InputView();
+        OutputView outputView = new OutputView();
+        PairMatchingController controller =
+                new PairMatchingController(inputView, outputView, pairMatchingService, matchingHistory);
+
+        controller.run();
     }
 }
