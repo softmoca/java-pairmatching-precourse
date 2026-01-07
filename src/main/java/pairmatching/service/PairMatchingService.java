@@ -9,7 +9,7 @@ import pairmatching.domain.Pair;
 import pairmatching.repository.NameRepository;
 
 public class PairMatchingService {
-
+    private static final int TRIPLE_SIZE = 3;
     private final NameRepository nameRepository;
     private final MatchingHistory matchingHistory;
 
@@ -79,15 +79,15 @@ public class PairMatchingService {
         pairNames.add(names.get(i));
         pairNames.add(names.get(i + 1));
 
-        if (isLastOdd(totalCount, i)) {
+        if (isStartIndexOfLastTriple(totalCount, i)) {
             pairNames.add(names.get(i + 2));
         }
 
         return new Pair(pairNames);
     }
 
-    private boolean isLastOdd(int totalCount, int i) {
-        return (totalCount - 3) == i;
+    private boolean isStartIndexOfLastTriple(int total, int startIndex) {
+        return total % 2 == 1 && startIndex == total - TRIPLE_SIZE;
     }
 
 }
