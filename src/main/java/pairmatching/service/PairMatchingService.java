@@ -34,7 +34,8 @@ public class PairMatchingService {
     private boolean validePair(List<Pair> newPairs, MatchingKey matchingKey) {
         List<Pair> existPairs = matchingHistory.findPairsBySameCourseAndLevel(matchingKey);
         for (Pair existPair : existPairs) {
-            if (isValidPair(newPairs, existPair)) {
+            // ✅ overlap(유효하지 않음)이 하나라도 있으면 false
+            if (!isValidPair(newPairs, existPair)) {
                 return false;
             }
         }
