@@ -32,9 +32,13 @@ public class MatchingHistory {
         return result;
     }
 
-    public void save(MatchingKey matchingKey, List<Pair> pairs) {
-        matchingMap.put(matchingKey, pairs);
+    public void save(MatchingKey key, List<Pair> pairs) {
+        matchingMap.put(
+                key,
+                Collections.unmodifiableList(new ArrayList<>(pairs))
+        );
     }
+
 
     public void clear() {
         matchingMap.clear();
