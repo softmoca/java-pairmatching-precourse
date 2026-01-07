@@ -31,11 +31,11 @@ public class PairMatchingController {
             if (command == FunctionCommand.QUIT) {
                 break;
             }
-            functioning(command);
+            handleCommand(command);
         }
     }
 
-    private void functioning(FunctionCommand command) {
+    private void handleCommand(FunctionCommand command) {
         if (command == FunctionCommand.MATCHING) {
             outputView.printCourseAndMission();
             functioningMatching();
@@ -48,9 +48,10 @@ public class PairMatchingController {
         }
 
         if (command == FunctionCommand.CLEAR) {
-            functioningClear();
+            matchingHistory.clear();
         }
     }
+
 
     private void functioningClear() {
         matchingHistory.clear();
@@ -76,24 +77,28 @@ public class PairMatchingController {
 
 
     private void functioningMatching() {
-        MatchingKey matchingKey = readMatchingKey();
+        while (true) {
+            MatchingKey matchingKey = readMatchingKey();
 
-        if (matchingHistory.contains(matchingKey)) {//재매칭
-            RematchCommand rematchCommand = readRematcingCommand();
-            if (rematchCommand == RematchCommand.YES) {
-                matching(matchingKey);         //매칭
+            if (!matchingHistory.contains(matchingKey)) {
+                printNewMatchingResult(matchingKey);
                 return;
             }
-            functioningMatching();
-            return;
+
+            RematchCommand rematchCommand = readRematcingCommand();
+            if (rematchCommand == RematchCommand.YES) {
+                printNewMatchingResult(matchingKey);
+                return;
+            }
         }
-        matching(matchingKey);
     }
 
-    private void matching(MatchingKey matchingKey) {
+
+    private void printNewMatchingResult(MatchingKey matchingKey) {
         List<Pair> pairs = pairMatchingService.match(matchingKey);
         outputView.printMatchingResult(pairs);
     }
+
 
     private RematchCommand readRematcingCommand() {
         return retryOnIllegalArgument(() ->
