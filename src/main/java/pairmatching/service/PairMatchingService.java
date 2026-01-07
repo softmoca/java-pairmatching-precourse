@@ -23,7 +23,7 @@ public class PairMatchingService {
         for (int i = 0; i < 3; i++) {
             List<String> names = Randoms.shuffle(nameRepository.getNames(matchingKey.getCourse()));
             List<Pair> pairs = createPairs(names);
-            if (validePair(pairs, matchingKey)) {
+            if (isValidMatching(pairs, matchingKey)) {
                 matchingHistory.save(matchingKey, pairs);
                 return pairs;
             }
@@ -31,41 +31,41 @@ public class PairMatchingService {
         throw new IllegalArgumentException("[ERROR] 매칭 3회 모두 실패");
     }
 
-    private boolean validePair(List<Pair> newPairs, MatchingKey matchingKey) {
+    private boolean isValidMatching(List<Pair> newPairs, MatchingKey matchingKey) {
         List<Pair> existPairs = matchingHistory.findPairsBySameCourseAndLevel(matchingKey);
         for (Pair existPair : existPairs) {
-            // ✅ overlap(유효하지 않음)이 하나라도 있으면 false
-            if (!isValidPair(newPairs, existPair)) {
+            if (hasNoOverlapWith(existPair, newPairs) == false) {
                 return false;
             }
         }
         return true;
     }
 
-    private static boolean isValidPair(List<Pair> newPairs, Pair existPair) {
+    private static boolean hasNoOverlapWith(Pair existPair, List<Pair> newPairs) {
         for (Pair newPair : newPairs) {
             int newPairCount = newPair.getCount();
-            if (newPairCount == 2 && (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(1)))) {
+
+            if (newPairCount == 2 && existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(1))) {
                 return false;
             }
-            if (isValid3NewPair(existPair, newPair)) {
+            if (hasAnyOverlapInTriple(existPair, newPair)) {
                 return false;
             }
         }
         return true;
     }
 
-    private static boolean isValid3NewPair(Pair existPair, Pair newPair) {
+    private static boolean hasAnyOverlapInTriple(Pair existPair, Pair newPair) {
         if (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(1))) {
-            return false;
+            return true;
         }
         if (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(2))) {
-            return false;
+            return true;
         }
         if (existPair.isExist(newPair.getNameByIdx(1), newPair.getNameByIdx(2))) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
 
