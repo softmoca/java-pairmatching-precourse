@@ -1,6 +1,7 @@
 package pairmatching.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,8 @@ public class MatchingHistory {
         this.matchingMap = new HashMap<>();
     }
 
-    public List<Pair> getPairsByKey(MatchingKey matchingKey) {
-        return matchingMap.get(matchingKey);
+    public List<Pair> getPairsByKey(MatchingKey key) {
+        return matchingMap.getOrDefault(key, Collections.emptyList());
     }
 
     public boolean contains(MatchingKey matchingKey) {

@@ -60,17 +60,20 @@ public class PairMatchingController {
         while (true) {
             try {
                 MatchingKey matchingKey = readMatchingKey();
-                if (matchingHistory.contains(matchingKey)) {
-                    List<Pair> pairs = matchingHistory.getPairsByKey(matchingKey);
-                    outputView.printMatchingResult(pairs);
-                    return;
+                List<Pair> pairs = matchingHistory.getPairsByKey(matchingKey);
+
+                if (pairs.isEmpty()) {
+                    throw new IllegalArgumentException("[ERROR] 매칭 이력이 없습니다.");
                 }
-                throw new IllegalArgumentException("[ERROR] 매칭 이력이 없습니다.");
+
+                outputView.printMatchingResult(pairs);
+                return;
             } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }
     }
+
 
     private void functioningMatching() {
         MatchingKey matchingKey = readMatchingKey();
