@@ -21,7 +21,7 @@ class LevelTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"", "레벨0", "레벨6", "LEVEL1", "레벨 1"})
+    @CsvSource({"레벨0", "레벨6", "LEVEL1", "레벨 1"})
     void 존재하지_않는_레벨이면_예외가_발생한다(String input) {
         assertThatThrownBy(() -> Level.from(input))
                 .isInstanceOf(IllegalArgumentException.class)

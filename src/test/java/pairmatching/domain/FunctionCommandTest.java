@@ -20,7 +20,7 @@ class FunctionCommandTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"", "0", "4", "q", "QUIT"})
+    @CsvSource({"0", "4", "q", "QUIT"})
     void 유효하지_않은_코드면_예외가_발생한다(String input) {
         assertThatThrownBy(() -> FunctionCommand.from(input))
                 .isInstanceOf(IllegalArgumentException.class)

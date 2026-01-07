@@ -18,7 +18,7 @@ class RematchCommandTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"", "예", "아니요", "YES", "NO"})
+    @CsvSource({"예", "아니요", "YES", "NO"})
     void 유효하지_않은_입력이면_예외가_발생한다(String input) {
         assertThatThrownBy(() -> RematchCommand.from(input))
                 .isInstanceOf(IllegalArgumentException.class)

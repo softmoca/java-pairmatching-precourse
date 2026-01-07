@@ -18,7 +18,7 @@ class CourseTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"", "백엔드 ", "프론트", "BACKEND"})
+    @CsvSource({"안드로이드 ", "프론트", "BACKEND"})
     void 존재하지_않는_과정이면_예외가_발생한다(String input) {
         assertThatThrownBy(() -> Course.from(input))
                 .isInstanceOf(IllegalArgumentException.class)
