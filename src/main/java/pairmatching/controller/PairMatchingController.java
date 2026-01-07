@@ -18,11 +18,14 @@ public class PairMatchingController {
     private final PairMatchingService pairMatchingService;
     private final MatchingHistory matchingHistory;
 
-    public PairMatchingController(InputView inputView, OutputView outputView, PairMatchingService pairMatchingService) {
+    public PairMatchingController(InputView inputView,
+                                  OutputView outputView,
+                                  PairMatchingService pairMatchingService,
+                                  MatchingHistory matchingHistory) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.pairMatchingService = pairMatchingService;
-        this.matchingHistory = new MatchingHistory();
+        this.matchingHistory = matchingHistory;
     }
 
     public void run() {
@@ -52,10 +55,6 @@ public class PairMatchingController {
         }
     }
 
-
-    private void functioningClear() {
-        matchingHistory.clear();
-    }
 
     private void functioningQuery() {
         while (true) {
