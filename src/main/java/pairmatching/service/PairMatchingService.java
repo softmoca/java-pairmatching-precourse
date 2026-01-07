@@ -32,7 +32,7 @@ public class PairMatchingService {
     }
 
     private boolean validePair(List<Pair> newPairs, MatchingKey matchingKey) {
-        List<Pair> existPairs = matchingHistory.findSameLevelPair(matchingKey);
+        List<Pair> existPairs = matchingHistory.findPairsBySameCourseAndLevel(matchingKey);
         for (Pair existPair : existPairs) {
             if (isValidPair(newPairs, existPair)) {
                 return false;

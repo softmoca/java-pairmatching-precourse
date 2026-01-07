@@ -17,20 +17,19 @@ public class MatchingHistory {
         return matchingMap.get(matchingKey);
     }
 
-    public boolean isExist(MatchingKey matchingKey) {
+    public boolean contains(MatchingKey matchingKey) {
         return matchingMap.containsKey(matchingKey);
     }
 
-    public List<Pair> findSameLevelPair(MatchingKey matchingKey) {
-        List<Pair> existPairs = new ArrayList<>();
-        for (MatchingKey key : matchingMap.keySet()) {
-            if (key.isSameCourseAndLevel(matchingKey)) {
-                existPairs.addAll(matchingMap.get(key));
+    public List<Pair> findPairsBySameCourseAndLevel(MatchingKey target) {
+        List<Pair> result = new ArrayList<>();
+        for (Map.Entry<MatchingKey, List<Pair>> entry : matchingMap.entrySet()) {
+            if (entry.getKey().isSameCourseAndLevel(target)) {
+                result.addAll(entry.getValue());
             }
         }
-        return existPairs;
+        return result;
     }
-
 
     public void save(MatchingKey matchingKey, List<Pair> pairs) {
         matchingMap.put(matchingKey, pairs);

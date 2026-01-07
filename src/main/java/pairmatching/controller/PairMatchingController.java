@@ -36,7 +36,7 @@ public class PairMatchingController {
     }
 
     private void functioning(FunctionCommand command) {
-        if (command == FunctionCommand.MACTING) {
+        if (command == FunctionCommand.MATCHING) {
             outputView.printCourseAndMission();
             functioningMatching();
             return;
@@ -60,7 +60,7 @@ public class PairMatchingController {
         while (true) {
             try {
                 MatchingKey matchingKey = readMatchingKey();
-                if (matchingHistory.isExist(matchingKey)) {
+                if (matchingHistory.contains(matchingKey)) {
                     List<Pair> pairs = matchingHistory.getPairsByKey(matchingKey);
                     outputView.printMatchingResult(pairs);
                     return;
@@ -75,7 +75,7 @@ public class PairMatchingController {
     private void functioningMatching() {
         MatchingKey matchingKey = readMatchingKey();
 
-        if (matchingHistory.isExist(matchingKey)) {//재매칭
+        if (matchingHistory.contains(matchingKey)) {//재매칭
             RematchCommand rematchCommand = readRematcingCommand();
             if (rematchCommand == RematchCommand.YES) {
                 matching(matchingKey);         //매칭
