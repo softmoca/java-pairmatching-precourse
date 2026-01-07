@@ -1,23 +1,32 @@
 package pairmatching.domain;
 
+import java.util.Arrays;
+
 public enum FunctionCommand {
-    MACTING("1"),
+    MATCHING("1"),
     QUERY("2"),
     CLEAR("3"),
     QUIT("Q");
 
-    private final String function;
+    private static final String INVALID_FUNCTION_COMMAND_ERROR =
+            "[ERROR] 유효하지 않은 기능 입력입니다.";
 
-    FunctionCommand(String function) {
-        this.function = function;
+    private final String code;
+
+    FunctionCommand(String code) {
+        this.code = code;
     }
 
-    public static FunctionCommand from(String function) {
-        for (FunctionCommand functionCommand : values()) {
-            if (functionCommand.function.equals(function)) {
-                return functionCommand;
-            }
-        }
-        throw new IllegalArgumentException("[ERROR] 기능 입력 에러");
+    public static FunctionCommand from(String code) {
+        return Arrays.stream(values())
+                .filter(command -> command.code.equals(code))
+                .findFirst()
+                .orElseThrow(() ->
+                        new IllegalArgumentException(INVALID_FUNCTION_COMMAND_ERROR)
+                );
+    }
+
+    public String getCode() {
+        return code;
     }
 }
