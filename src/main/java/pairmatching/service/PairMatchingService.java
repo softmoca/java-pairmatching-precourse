@@ -34,36 +34,30 @@ public class PairMatchingService {
     private boolean isValidMatching(List<Pair> newPairs, MatchingKey matchingKey) {
         List<Pair> existPairs = matchingHistory.findPairsBySameCourseAndLevel(matchingKey);
         for (Pair existPair : existPairs) {
-            if (hasNoOverlapWith(existPair, newPairs) == false) {
+            if (hasAnyOverlap(existPair, newPairs)) {
                 return false;
             }
         }
         return true;
     }
 
-    private static boolean hasNoOverlapWith(Pair existPair, List<Pair> newPairs) {
+    private static boolean hasAnyOverlap(Pair existPair, List<Pair> newPairs) {
         for (Pair newPair : newPairs) {
-            int newPairCount = newPair.getCount();
-
-            if (newPairCount == 2 && existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(1))) {
-                return false;
-            }
-            if (hasAnyOverlapInTriple(existPair, newPair)) {
-                return false;
+            if (hasOverlapBetween(existPair, newPair)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
-    private static boolean hasAnyOverlapInTriple(Pair existPair, Pair newPair) {
-        if (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(1))) {
-            return true;
-        }
-        if (existPair.isExist(newPair.getNameByIdx(0), newPair.getNameByIdx(2))) {
-            return true;
-        }
-        if (existPair.isExist(newPair.getNameByIdx(1), newPair.getNameByIdx(2))) {
-            return true;
+    private static boolean hasOverlapBetween(Pair existPair, Pair newPair) {
+        int count = newPair.getCount();
+        for (int i = 0; i < count; i++) {
+            for (int j = i + 1; j < count; j++) {
+                if (existPair.isExist(newPair.getNameByIdx(i), newPair.getNameByIdx(j))) {
+                    return true;
+                }
+            }
         }
         return false;
     }
