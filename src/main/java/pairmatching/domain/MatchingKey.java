@@ -44,8 +44,8 @@ public class MatchingKey {
         return mission.getLevel();
     }
 
-    public boolean isSameCourseAndLevel(MatchingKey matchingKey) {
-        return course == matchingKey.getCourse() && this.getLevel() == matchingKey.getLevel();
+    public boolean isSameCourseAndLevel(MatchingKey other) {
+        return this.course == other.course && this.getLevel() == other.getLevel();
     }
 
     @Override
