@@ -7,24 +7,19 @@ import pairmatching.util.Parser;
 public class InputView {
 
     private static final String DELIMITER = ",";
-
-    //    private static final String FUNCTION_PROMPT = """
-//            기능을 선택하세요.
-//            1. 페어 매칭
-//            2. 페어 조회
-//            3. 페어 초기화
-//            Q. 종료
-//            """;
-    private static final String FUNCTION_PROMPT =
-            "기능을 선택하세요.\n" +
-                    "1. 페어 매칭\n" +
-                    "2. 페어 조회\n" +
-                    "3. 페어 초기화\n" +
-                    "Q. 종료\n";
+    private static final String FUNCTION_TITLE = "기능을 선택하세요.";
+    private static final String FUNCTION_MATCHING = "1. 페어 매칭";
+    private static final String FUNCTION_QUERY = "2. 페어 조회";
+    private static final String FUNCTION_CLEAR = "3. 페어 초기화";
+    private static final String FUNCTION_QUIT = "Q. 종료";
 
 
     public String readFunction() {
-        System.out.println(FUNCTION_PROMPT);
+        System.out.println(FUNCTION_TITLE);
+        System.out.println(FUNCTION_MATCHING);
+        System.out.println(FUNCTION_QUERY);
+        System.out.println(FUNCTION_CLEAR);
+        System.out.println(FUNCTION_QUIT);
         return Console.readLine().trim();
     }
 
