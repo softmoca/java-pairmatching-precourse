@@ -25,11 +25,12 @@ public class MatchingHistory {
         List<Pair> existPairs = new ArrayList<>();
         for (MatchingKey key : matchingMap.keySet()) {
             if (key.isSameCourseAndLevel(matchingKey)) {
-                existPairs.addAll(matchingMap.get(matchingKey));
+                existPairs.addAll(matchingMap.get(key));
             }
         }
         return existPairs;
     }
+
 
     public void save(MatchingKey matchingKey, List<Pair> pairs) {
         matchingMap.put(matchingKey, pairs);
