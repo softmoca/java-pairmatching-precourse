@@ -4,6 +4,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class MatchingKey {
+    private static final int COURSE_INDEX = 0;
+    private static final int LEVEL_INDEX = 1;
+    private static final int MISSION_INDEX = 2;
+    private static final int INPUT_SIZE = 3;
+
+    private static final String INVALID_INPUT_SIZE_ERROR =
+            "[ERROR] 과정, 레벨, 미션을 순서대로 입력해야 합니다.";
+
     private final Course course;
     private final Mission mission;
 
@@ -13,16 +21,18 @@ public class MatchingKey {
     }
 
     public static MatchingKey from(List<String> input) {
-        validateSize(input);
-        Course course = Course.from(input.get(0));
-        Level level = Level.from(input.get(1));
-        Mission mission = Mission.from(input.get(2), level);
+        validateInputSize(input);
+
+        Course course = Course.from(input.get(COURSE_INDEX));
+        Level level = Level.from(input.get(LEVEL_INDEX));
+        Mission mission = Mission.from(input.get(MISSION_INDEX), level);
+
         return new MatchingKey(course, mission);
     }
 
-    private static void validateSize(List<String> input) {
-        if (input.size() != 3) {
-            throw new IllegalArgumentException("[ERROR] 과정, 레벨, 미션 입력 3개");
+    private static void validateInputSize(List<String> input) {
+        if (input.size() != INPUT_SIZE) {
+            throw new IllegalArgumentException(INVALID_INPUT_SIZE_ERROR);
         }
     }
 
@@ -35,7 +45,6 @@ public class MatchingKey {
     }
 
     public boolean isSameCourseAndLevel(MatchingKey matchingKey) {
-
         return course == matchingKey.getCourse() && this.getLevel() == matchingKey.getLevel();
     }
 
